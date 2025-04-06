@@ -1,3 +1,8 @@
-Command to exec into container and run command 
+* Command to exec into container and run command 
 
->   "kubectl exec webapp -- cat /log/app.log"
+<pre> "kubectl exec webapp -- cat /log/app.log" </pre>
+
+
+* command to fetch process details on node
+
+<pre> ps -aux  </pre>
