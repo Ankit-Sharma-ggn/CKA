@@ -1,4 +1,4 @@
-### Storage
+# Storage
 
 ## Volumes
 A volume in Kubernetes is a directory accessible to containers in a pod, used to store and share data. Unlike container storage, volumes persist data beyond the container's lifecycle within the pod's lifespan.
@@ -6,3 +6,25 @@ A volume in Kubernetes is a directory accessible to containers in a pod, used to
 example > volumes.yaml 
 
 ## Persistent Volumes
+
+> large pool of volume to be use by pods\container deployed by users.
+> Access Modes "accessModes"
+1. ReadOnlyMany - 
+2. ReadWriteOnce
+3. ReadWriteMany
+
+## Persistent Volume Claims
+
+> a way to request storage for container in kubernetes, it is bound to one PV at a time based on availiablity of
+  capacity, access mode, volume modes and storage class.
+
+> labels can be specified for binding 
+
+> if no capacity is available, pvc will remain in pending state.
+
+>> kubectl delete persistentvolumeclaim "myclaim"
+
+>> persistentVolumeReclaimPolicy - to decide what to do with pv after pvc deletion. We have three options
+1. Retain - pv will not be deleted and data will remain there
+2. Delete - pv will deleted with pvc deletion
+3. recycle - pv will be recycle and made available for other pvc
