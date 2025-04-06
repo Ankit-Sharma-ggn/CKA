@@ -28,3 +28,18 @@ example > volumes.yaml
 1. Retain - pv will not be deleted and data will remain there
 2. Delete - pv will deleted with pvc deletion
 3. recycle - pv will be recycle and made available for other pvc
+
+## Storage Class in Kubernetes
+
+* When working with persistent storage in Kubernetes, it's important to understand the difference between manual provisioning and dynamic provisioning of volumes.
+
+❌ Without StorageClass
+
+* You must manually create the PersistentVolume (PV) in advance. The storage (e.g., AWS EBS, GCP Persistent Disk) must be provisioned outside of Kubernetes. Your PersistentVolumeClaim (PVC) will only bind if a matching PV is available. This process is static and requires manual intervention.
+
+✅ With StorageClass
+* Kubernetes handles dynamic provisioning of storage. When a PVC is created, Kubernetes automatically provisions the underlying storage (e.g., EBS, PD).
+
+* No need to manually create PV objects.
+
+* You simply define the StorageClass, and Kubernetes takes care of the rest.
