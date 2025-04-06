@@ -33,7 +33,7 @@ example > [pv.yaml](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/storage/pv
 
 ## Storage Class in Kubernetes
 
-* When working with persistent storage in Kubernetes, it's important to understand the difference between manual provisioning and dynamic provisioning of volumes.
+When working with persistent storage in Kubernetes, it's important to understand the difference between manual provisioning and dynamic provisioning of volumes.
 
 ### ❌ Without StorageClass ( static provisioning )
 
