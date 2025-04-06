@@ -35,13 +35,38 @@ example > [pv.yaml](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/storage/pv
 
 * When working with persistent storage in Kubernetes, it's important to understand the difference between manual provisioning and dynamic provisioning of volumes.
 
-### ❌ Without StorageClass
+### ❌ Without StorageClass ( static provisioning )
 
 * You must manually create the PersistentVolume (PV) in advance. The storage (e.g., AWS EBS, GCP Persistent Disk) must be provisioned outside of Kubernetes. Your PersistentVolumeClaim (PVC) will only bind if a matching PV is available. This process is static and requires manual intervention.
 
-### ✅ With StorageClass
+### ✅ With StorageClass ( Dynamic provisioning)
 * Kubernetes handles dynamic provisioning of storage. When a PVC is created, Kubernetes automatically provisions the underlying storage (e.g., EBS, PD).
 
 * No need to manually create PV objects.
 
 * You simply define the StorageClass, and Kubernetes takes care of the rest.
+
+* a simple storage class defination
+    <pre> ```
+    apiVersion: storage.k8s.io/v1
+    kind: StorageClass
+    metadata:
+    name: google-storage
+    provisioner: kubernetes.io/gce-pd
+    ``` </pre>
+
+* how to use it in a pvc to create a pv automatically
+    <pre> ```
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+    name: my-pvc
+    namespace: default
+    spec:
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+        storage: 1Gi
+    storageClassName: google-storage
+    ``` </pre>
