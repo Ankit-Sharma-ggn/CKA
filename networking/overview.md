@@ -12,3 +12,7 @@
     * ETCD : 2379
 
 In case of multiple master node, for ETCD connection 2380 connection is required
+
+![Network Ports](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/images/network_ports.png)
+
+
