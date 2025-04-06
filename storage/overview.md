@@ -24,7 +24,7 @@ example > [pv.yaml](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/storage/pv
 
 * if no capacity is available, pvc will remain in pending state.
 
-* kubectl delete persistentvolumeclaim "myclaim"
+<pre> kubectl delete persistentvolumeclaim "myclaim" </pre>
 
 * persistentVolumeReclaimPolicy - to decide what to do with pv after pvc deletion. We have three options
     1. Retain - pv will not be deleted and data will remain there
@@ -47,13 +47,13 @@ example > [pv.yaml](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/storage/pv
 * You simply define the StorageClass, and Kubernetes takes care of the rest.
 
 * a simple storage class defination
-    <pre> ```
+    <pre>
     apiVersion: storage.k8s.io/v1
     kind: StorageClass
     metadata:
     name: google-storage
     provisioner: kubernetes.io/gce-pd
-    ``` </pre>
+    </pre>
 
 * how to use it in a pvc to create a pv automatically
     <pre> 
