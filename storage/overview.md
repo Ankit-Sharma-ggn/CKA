@@ -3,7 +3,7 @@
 ## Volumes
 A volume in Kubernetes is a directory accessible to containers in a pod, used to store and share data. Unlike container storage, volumes persist data beyond the container's lifecycle within the pod's lifespan.
 
-example > volumes.yaml 
+example > [volumes.yaml](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/storage/volumes.yaml) 
 
 ## Persistent Volumes
 
@@ -12,6 +12,8 @@ example > volumes.yaml
     1. ReadOnlyMany - 
     2. ReadWriteOnce
     3. ReadWriteMany
+
+example > [pv.yaml](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/storage/pv.yaml)
 
 ## Persistent Volume Claims
 
