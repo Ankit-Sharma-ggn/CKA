@@ -56,7 +56,7 @@ example > [pv.yaml](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/storage/pv
     ``` </pre>
 
 * how to use it in a pvc to create a pv automatically
-    <pre> ```
+    <pre> 
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
@@ -69,4 +69,4 @@ example > [pv.yaml](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/storage/pv
         requests:
         storage: 1Gi
     storageClassName: google-storage
-    ``` </pre>
+    </pre>
