@@ -2,7 +2,7 @@
 
 ## Networking options
 
-1. None - container is not connected to anyother container or host network.
+1. <mark>None</mark> - container is not connected to anyother container or host network.
 
 <pre> docker run --network none nginx</pre>
 
