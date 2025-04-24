@@ -36,9 +36,11 @@ CNI is a specification and library for configuring network interfaces in Linux c
 
 * Weavework is one of the networking solution for kubernetes
 
-* <pre>/opt/cni/bin</pre> - list of all CNI plugin
+* list of all CNI plugin :-
+    <pre>/opt/cni/bin</pre> - 
 
-* <pre>/etc/cni/net.d </pre> - list of CNI in use
+* list of CNI in use :-
+    <pre>/etc/cni/net.d </pre>
 
 #### Weave (CNI): 
 Weave Net is a Container Network Interface (CNI) plugin that provides a simple, fast, and secure network for Kubernetes clusters. It allows all pods across nodes to communicate with each other as if they were on the same local network — no matter which node they're on.
@@ -82,9 +84,10 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
 * IP network for pods and service should not be collide (overlap)
 
 * finding iptables rule created by kube-proxy
-    <pre> iptables -L -t nat | grep "<name of service>"  </pre>
+    <pre> iptables -L -t nat | grep "name of service"  </pre>
 
-* kube proxy logs > "/var/log/kube-proxy.log"
+* kube proxy logs
+    <pre> "/var/log/kube-proxy.log" </pre>
 
 * type of network services
     * ClusterIP - access within cluster
