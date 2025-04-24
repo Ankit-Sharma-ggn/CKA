@@ -1,15 +1,17 @@
-# Basic Networking - Docker
+# 🚀Basic Networking - Docker
 
-## Networking options
+## 🔌 Networking Options
 
 1. <mark>None</mark> - container is not connected to anyother container or host network.
 
 <pre> docker run --network none nginx</pre>
 
 2. Host - container is attached to the host network.
+ 
+    📌 Key Points:
+    If port 80 is exposed in the container, host port 80 gets attached to it.
+    Any request on host port 80 will be forwarded to the container.
 
-    a.  If port 80 is exposed on conatiner, the host port 80 get attached to the container and any request on host port 80 will be forwarded to container.
-
-    b. No 2 container can be attached to one port in host networking.  
+    Two containers cannot bind to the same port on the host when using host networking.
 
 3. 
