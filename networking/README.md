@@ -16,6 +16,9 @@ In case of multiple master node, for ETCD connection 2380 connection is required
 ![Network Ports](https://github.com/Ankit-Sharma-ggn/CKA/blob/main/images/network_ports.png)
 
 
+## Basic Networking - Docker
+
+
 ## Networking Model ( pod level networking)
 
 * Every POD should have an IP address
