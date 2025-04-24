@@ -27,6 +27,7 @@ In case of multiple master node, for ETCD connection 2380 connection is required
 
 Network Solution (addon): kubernetes do not provide default networking, we need to add add-ons to support POD networking. i.e flannel, cilium and NSX
 
+
 ### CNI ( Container Network Interface)
 
 CNI is a specification and library for configuring network interfaces in Linux containers. It ensures that containers have the necessary networking capabilities to communicate within a Kubernetes cluster.
@@ -35,28 +36,55 @@ CNI is a specification and library for configuring network interfaces in Linux c
 
 * Weavework is one of the networking solution for kubernetes
 
-* /opt/cni/bin - list of all CNI plugin
+* <pre>/opt/cni/bin</pre> - list of all CNI plugin
 
-* /etc/cni/net.d - list of CNI to use
+* <pre>/etc/cni/net.d </pre> - list of CNI in use
 
-### Deploy Weave
-Is deploy as POD on each node.
+#### Weave (CNI): 
+Weave Net is a Container Network Interface (CNI) plugin that provides a simple, fast, and secure network for Kubernetes clusters. It allows all pods across nodes to communicate with each other as if they were on the same local network — no matter which node they're on.
 
-### IPAM (IP address management)
+### how it works:-
+Weave creates an overlay network across all Kubernetes nodes using a peer-to-peer mesh. It uses VXLAN encapsulation to tunnel pod traffic between nodes.
+
+    * Each node gets a block of IP addresses assigned from a global CIDR (e.g., 10.32.0.0/12).
+
+    * Pods on the node get IPs from this block. Weave keeps a distributed IPAM (IP Address Management) database to avoid collisions.
+
+    * When a pod sends traffic to another pod (on a different node):
+
+    * The packet is intercepted by Weave.
+
+    * It encapsulates the traffic using VXLAN and sends it over the mesh to the correct node.
+
+    * On the destination node, Weave decapsulates and delivers it to the target pod.
 
 
 ## Service Network
 * a cluster wide virtual object, span across the nodes in cluster.
 
-* kube-proxy create forwarding rules on each nodes to forward thge traffic of service network to particular pod.
+* kube-proxy create forwarding rules on each nodes to forward the traffic of service network to particular pod.
 
-* ip range of the services - 
+    default proxy mode = iptables
+
+<pre> kube-proxy --proxy-mode [userspace | iptables | ipvs ]</pre>
+
+
+* ip range of the services configured by kube-proxy- 
 
     <pre> kube-api-server --service-cluster-ip-range ipNet</pre>
+
+* get configured Ip range from cluster 
 
     <pre> ps aux | grep kube-api-server </pre>
 
     * default value - 10.0.0.0/24
+
+* IP network for pods and service should not be collide (overlap)
+
+* finding iptables rule created by kube-proxy
+    <pre> iptables -L -t nat | grep "<name of service>"  </pre>
+
+* kube proxy logs > "/var/log/kube-proxy.log"
 
 * type of network services
     * ClusterIP - access within cluster
