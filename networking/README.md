@@ -128,7 +128,6 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
     "/etc/coredns/Corefile"
 
     - file is passes as configMap to Coredns pod with name "core-dns"
-
     <pre> 
     .:53 {
     errors
@@ -148,9 +147,9 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
     reload
     loadbalance
     log
-    }
-    </pre>
+    }</pre>
 
+    <pre>
     Directive	Purpose
     .:53	    Listens on all interfaces on port 53
     errors	    Enables error logging
@@ -164,6 +163,7 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
     reload	    Automatically reloads CoreDNS on config changes
     loadbalance	Balances the response order for A/AAAA records
     log	Logs DNS queries (can be fine-tuned or redirected to a file)
+    </pre>
     
 * a default core-dns service is created, which points to the pods.
 
