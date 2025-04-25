@@ -109,13 +109,12 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
     - From another namespace "web-ser.app"
     - Resolution within kubernetes cluster by "web-ser.app.svc.cluster.local"
 
-        web-ser         > service name
-
-        app             > namespace
-
-        svc             > type ( service )
-
-        cluster.local   > root
+        | **Component**    | **Meaning**              |
+        |------------------|--------------------------|
+        | `web-ser`        | Service name             |
+        | `app`            | Namespace                |
+        | `svc`            | Type (service)           |
+        | `cluster.local`  | Root domain (default)    |
 
 ### How services get resolved in cluster
 
