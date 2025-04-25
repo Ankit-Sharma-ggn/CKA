@@ -183,7 +183,7 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
 
 ## Ingress 
 
-link -> ![Ingress](.ingress.md)
+link -> ![Ingress](ingress.md)
 
 * help developers to create single externally accessible url for user to route traffic to different services based on requested urls path.
 
