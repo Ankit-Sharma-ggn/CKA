@@ -92,4 +92,7 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
 * type of network services
     * ClusterIP - access within cluster
     * NodePort - accessible outside
-    * 
+
+## DNS in Kubernetes
+
+![Kube DNS](/images/kube-dns.png)
