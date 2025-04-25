@@ -108,16 +108,21 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
     - Withing the namespace it can be resolve by "web-ser"
     - From another namespace "web-ser.app"
     - Resolution within kubernetes cluster by "web-ser.app.svc.cluster.local"
+
         web-ser         > service name
+
         app             > namespace
+
         svc             > type ( service )
+
         cluster.local   > root
 
 ### How services get resolved in cluster
 
 * Pods dns records are not created by default, the settings needs to be enabled.
 
-* Pods dns entry is created by removing "." in pods IP with "-"
+* Pods dns entry is created by replacing "." in pod's IP with "-"
+
     i.e > 10.244.2.5 > 10-244-2-5
 
     - FQDN  > "10-244-2-5.app.pod.cluster.local"
@@ -150,19 +155,20 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
     }</pre>
 
     <pre>
-    Directive	Purpose
-    .:53	    Listens on all interfaces on port 53
-    errors	    Enables error logging
-    health	    Provides a health endpoint for monitoring
-    ready	    Adds a readiness endpoint for Kubernetes
-    kubernetes	Handles DNS queries for Kubernetes services and pods
-    prometheus	Enables Prometheus metrics at port 9153
-    forward	    Forwards DNS queries to upstream servers (Google DNS in this case)
-    cache	    Caches DNS responses for 30 seconds
-    loop	    Prevents infinite forwarding loops
-    reload	    Automatically reloads CoreDNS on config changes
-    loadbalance	Balances the response order for A/AAAA records
-    log	Logs DNS queries (can be fine-tuned or redirected to a file)
+    | Directive | Purpose |
+    | ------- | ------- |
+    | `.:53`	| Listens on all interfaces on port 53 |
+    | `errors` | Enables error logging |
+    | `health` | Provides a health endpoint for monitoring
+    | `ready`| Adds a readiness endpoint for Kubernetes |
+    | `kubernetes` | Handles DNS queries for Kubernetes services and pods |
+    | `prometheus` | Enables Prometheus metrics at port 9153 |
+    | `forward`       | Forwards DNS queries to upstream servers (Google DNS in this case) |
+    | `cache`         | Caches DNS responses for 30 seconds |
+    | `loop`          | Prevents infinite forwarding loops |
+    | `reload`        | Automatically reloads CoreDNS on config changes |
+    | `loadbalance`   | Balances the response order for A/AAAA records |
+    | `log`           | Logs DNS queries (can be fine-tuned or redirected to a file) |
     </pre>
     
 * a default core-dns service is created, which points to the pods.
