@@ -103,11 +103,11 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
 
 ### How services get resolved in cluster
 
-* Let assume we created a web service "web-ser" in namespace "app".
+* Let assume we created a web service `web-ser` in namespace `app`.
 
-    - Withing the namespace it can be resolve by "web-ser"
-    - From another namespace "web-ser.app"
-    - Resolution within kubernetes cluster by "web-ser.app.svc.cluster.local"
+    - Withing the namespace it can be resolve by `web-ser`
+    - From another namespace `web-ser.app`
+    - Resolution within kubernetes cluster by `web-ser.app.svc.cluster.local`
 
         | **Component**    | **Meaning**              |
         |------------------|--------------------------|
@@ -169,6 +169,14 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
     | `log` | Logs DNS queries (can be fine-tuned or redirected to a file) |
     
     
-* a default core-dns service is created, which points to the pods.
+* a default core-dns service (cluster-IP) is created, which points to the core-dns pods. 
 
-* In each pod, etc/resolv.conf contains a nameserver entry, which points to the coreDNS service IP.
+* In each pod, etc/resolv.conf contains a nameserver entry(core-dns service (cluster-IP)), which points to the coreDNS service IP. This configurations are done by kubernetes when pods are created. The entry of service-ip is already there in kubelet configuration file
+
+    `cat /var/lib/kubelet/config.yaml`
+    ```
+    ...
+     clusterDNS:
+     - 10.96.0.10
+     clusterDomain: cluster.local 
+    ```
