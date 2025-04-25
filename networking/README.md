@@ -95,4 +95,76 @@ Weave creates an overlay network across all Kubernetes nodes using a peer-to-pee
 
 ## DNS in Kubernetes
 
+* kube dns is a default dns use by kubernetes to give friendly name for resolution.
+
+* previously the name of kubernetes dns was kube-dns, but from v1.12 the name is CoreDNS.
+
 ![Kube DNS](/images/kube-dns.png)
+
+### How services get resolved in cluster
+
+* Let assume we created a web service "web-ser" in namespace "app".
+
+    - Withing the namespace it can be resolve by "web-ser"
+    - From another namespace "web-ser.app"
+    - Resolution within kubernetes cluster by "web-ser.app.svc.cluster.local"
+        web-ser         > service name
+        app             > namespace
+        svc             > type ( service )
+        cluster.local   > root
+
+### How services get resolved in cluster
+
+* Pods dns records are not created by default, the settings needs to be enabled.
+
+* Pods dns entry is created by removing "." in pods IP with "-"
+    i.e > 10.244.2.5 > 10-244-2-5
+
+    - FQDN  > "10-244-2-5.app.pod.cluster.local"
+
+### How CoreDNS is setup in kubernetes
+
+* CoreDNS is deployed as pod in kube-system. It uses a configuration file for setting\configuration. 
+    "/etc/coredns/Corefile"
+
+    - file is passes as configMap to Coredns pod with name "core-dns"
+
+    <pre> 
+    .:53 {
+    errors
+    health
+    ready
+    kubernetes cluster.local in-addr.arpa ip6.arpa {
+        pods insecure
+        fallthrough in-addr.arpa ip6.arpa
+        ttl 30
+    }
+    prometheus :9153
+    forward . 8.8.8.8 8.8.4.4 {
+        max_concurrent 1000
+    }
+    cache 30
+    loop
+    reload
+    loadbalance
+    log
+    }
+    </pre>
+
+    Directive	Purpose
+    .:53	    Listens on all interfaces on port 53
+    errors	    Enables error logging
+    health	    Provides a health endpoint for monitoring
+    ready	    Adds a readiness endpoint for Kubernetes
+    kubernetes	Handles DNS queries for Kubernetes services and pods
+    prometheus	Enables Prometheus metrics at port 9153
+    forward	    Forwards DNS queries to upstream servers (Google DNS in this case)
+    cache	    Caches DNS responses for 30 seconds
+    loop	    Prevents infinite forwarding loops
+    reload	    Automatically reloads CoreDNS on config changes
+    loadbalance	Balances the response order for A/AAAA records
+    log	Logs DNS queries (can be fine-tuned or redirected to a file)
+    
+* a default core-dns service is created, which points to the pods.
+
+* In each pod, etc/resolv.conf contains a nameserver entry, which points to the coreDNS service IP.
