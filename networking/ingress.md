@@ -1,5 +1,7 @@
 ## Ingress
 
+Make your HTTP (or HTTPS) network service available using a protocol-aware configuration mechanism, that understands web concepts like URIs, hostnames, paths, and more. The Ingress concept lets you map traffic to different backends based on rules you define via the Kubernetes API.
+
 - help developers to create single externally accessible url for user to route traffic to different services based on requested urls path.
 
 - works as layer 7 loadbalancer.
@@ -25,3 +27,21 @@ kubectl create ingress <ingress-name> --rule="host/path=service:port"
 
 Example - kubectl create ingress ingress-test --rule="wear.my-online-store.com/wear*=wear-service:80"
 ```
+
+Ingress rule
+
+## Types of Ingress 
+
+# 1. Ingress backed by a single Service
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+spec:
+  defaultBackend:
+    service:
+      name: test
+      port:
+        number: 80
