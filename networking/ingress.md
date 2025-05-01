@@ -32,7 +32,9 @@ Ingress rule
 
 ## Types of Ingress 
 
-# 1. Ingress backed by a single Service
+### 1. Ingress backed by a single Service
+
+- specifying a default backend with no rules.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -45,3 +47,56 @@ spec:
       name: test
       port:
         number: 80
+```
+
+### 2. Simple fanout
+
+A fanout configuration routes traffic from a single IP address to more than one Service, based on the HTTP URI being requested
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simple-fanout-example
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /foo
+        pathType: Prefix
+        backend:
+          service:
+            name: service1
+            port:
+              number: 4200
+      - path: /bar
+        pathType: Prefix
+        backend:
+          service:
+            name: service2
+            port:
+              number: 8080
+```
+exercices on ingress
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: ingress-pay
+  namespace: critical-space
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /pay
+        pathType: Prefix
+        backend:
+          service:
+            name: pay-service
+            port:
+              number: 8282
