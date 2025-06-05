@@ -13,17 +13,49 @@ The master nodes are responsible for managing the cluster and maintaining the de
 
 **Key Components:**
 - `kube-apiserver`: Exposes the Kubernetes API.
+    - The kube-apiserver is a core component of the Kubernetes control plane. It acts as the front-end for the Kubernetes API and is the central management entity that receives, validates, and processes REST requests, then updates the cluster state accordingly.
+
+    Key Responsibilities:
+
+    - API Gateway: Exposes the Kubernetes API (usually at port 6443).
+
+    - Request Validation: Authenticates and authorizes API requests.
+
+    - State Management: Communicates with etcd to store and retrieve the cluster state.
+
+    - Controller Interaction: Provides a unified interface for other control plane components (like kube-controller-manager, scheduler, etc.) to interact with cluster data.
+
+    - Admission Control: Applies admission plugins to enforce policies before persisting objects.
+
 - `etcd`: 
     - A distributed, reliable key-value store for cluster data.
     - listen on port 2379
-    - etcd basic commands 
+    - etcd basic commands: ETCDCTL can interact with ETCD Server using 2 API versions - Version 2 and Version 3.  By default its set to use Version 2. Each version has different sets of commands.
 
-    ``` 
+    - To set the right version of API set the environment variable ETCDCTL_API command
+
+        `export ETCDCTL_API=3`
+
+    ```
+    # commands for version 2 
+    ## etcd version
+    ./etcdctl --version
+
     ## enter any values in etcd
     ./etcdctl set key1 value1
 
-    ## retrieve values from etcd
+    ## retrieve values from etcd ( same for both versions)
     ./etcdctl get key1
+
+    # commands for version 3 
+    ## etcd version
+
+    ## enter any values in etcd
+    ./etcdctl put key1 value1
+    ```
+
+    ```
+    kubectl exec etcd-master -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl get / --prefix --keys-only --limit=10 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt  --key /etc/kubernetes/pki/etcd/server.key" 
     ```
 
 - `kube-scheduler`: Assigns workloads to worker nodes.
@@ -46,7 +78,7 @@ Worker nodes run the actual application workloads in containers. Each worker nod
 
 ---
 
-![Kubernetes Archi](/images/kube-archi.png)
+![Kubernetes Archi](/images/kube_archi.png)
 
 ## 🚀 Key Features of Kubernetes
 
