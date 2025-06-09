@@ -59,10 +59,24 @@ The master nodes are responsible for managing the cluster and maintaining the de
     ```
 
 - `kube-scheduler`: Assigns workloads to worker nodes.
+    - assign pods to the node on basis of best fit node, which has max free resources.
+
 - `kube-controller-manager`: Ensures the cluster state matches the desired state.
-    - controller-manager: 
-    - node-controller:
-    - replication-controller:
+    - A controller is a component which monitor components for its state and remediate in case of discrepancy. i.e Node controller, monitor the state of nodes every 5 s, and in case of no response for 40s, it marks the node unreachable. In case of no response for 5 min, the controller evict\restart the pods on other nodes. list of controllers
+
+        - node-controller:
+        - replication-controller:
+        - namespace controller
+        - deployment controller
+        - endpoint-controller, there are more controllers.
+
+    - controller use api-server to connect\monitor the status of each components. 
+
+    - all controller are package in controller manager and run as service on master modes.
+
+        `ps -aux | grep kube-controller-manager`
+
+
 - `cloud-controller-manager`: Manages cloud-specific resources.
 
 ---
@@ -72,8 +86,16 @@ The master nodes are responsible for managing the cluster and maintaining the de
 Worker nodes run the actual application workloads in containers. Each worker node contains the following:
 
 **Key Components:**
-- `kubelet`: Ensures containers are running in their assigned pods.
+- `kubelet`: 
+    - register the node in cluster.
+    - Ensures containers are running in their assigned pods. 
+    - Monitor the resources and provide status to kube-apiserver.
+
 - `kube-proxy`: Handles networking and service discovery.
+    - process on each node, that look for service and create rules to forward traffic within nodes.
+    - internal network within kubernetes cluster to connect all pods within all nodes.
+
+
 - **Container Runtime** (e.g., Docker, containerd): Executes containers.
 
 ---
