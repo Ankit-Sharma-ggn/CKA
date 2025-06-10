@@ -25,11 +25,19 @@ spec:
     `kubectl apply -f pod-def.yml`
 
 - see pods
-    `kubectl get pods`
+    <pre>`kubectl get pods`</pre>
 
 - detail information about pod
-    `kubectl describe pod <pod-name>`
+    <pre>kubectl describe pod <pod-name></pre>
 
+- create pods without def file
+    `kubectl run nginx --image=nginx`
+
+- Generate POD Manifest YAML file (-o yaml). Don't create it(--dry-run)
+    `kubectl run nginx --image=nginx --dry-run=client -o yaml`
+
+- Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.
+    `kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml`
 
 ## ReplicaSets ( previously ReplicationController)
 
@@ -106,3 +114,46 @@ Save object config to file
 
 `kubectl replace replicaset <repliaceset name> -f updated-replicaset.yaml`
 
+
+## Deployment
+
+A Deployment in Kubernetes is a resource that allows users to manage and control the lifecycle of applications running in a Kubernetes cluster
+
+- allow rolling upgrade
+- undo changes if required
+- automatically create a replicaset
+
+deployment definition
+dep-def.yml
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: myapp-rcset
+    labels:
+        app: myapp
+        type: front
+spec:
+    template:
+        metadata:
+            name: myapp-pod
+            labels:
+                app: myapp
+                type: front
+                ver: 1
+        spec:
+            containers:
+                - name: nginx-container
+                image: nginx
+    replicas: 3
+    selector:
+        matchLabels:
+            type: front
+    
+```
+
+-  Get all components  
+    <pre>kubectl get all</pre>
+
+
+ 
