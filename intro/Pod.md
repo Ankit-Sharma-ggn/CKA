@@ -21,8 +21,8 @@ spec:
 ```
 
 - create pod using yml file
-    `kubectl create -f pod-def.yml`
-    `kubectl apply -f pod-def.yml`
+    ```kubectl create -f pod-def.yml
+    kubectl apply -f pod-def.yml```
 
 - see pods
     <pre>`kubectl get pods`</pre>
