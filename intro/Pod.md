@@ -21,23 +21,25 @@ spec:
 ```
 
 - create pod using yml file
-    ```kubectl create -f pod-def.yml
-    kubectl apply -f pod-def.yml```
+    ```
+    kubectl create -f pod-def.yml
+    kubectl apply -f pod-def.yml
+    ```
 
 - see pods
-    <pre>`kubectl get pods`</pre>
+    <pre>kubectl get pods</pre>
 
 - detail information about pod
-    <pre>kubectl describe pod <pod-name></pre>
+    <pre>kubectl describe pod #pod-name# </pre>
 
 - create pods without def file
-    `kubectl run nginx --image=nginx`
+    <pre>kubectl run nginx --image=nginx</pre>
 
 - Generate POD Manifest YAML file (-o yaml). Don't create it(--dry-run)
-    `kubectl run nginx --image=nginx --dry-run=client -o yaml`
+    <pre>kubectl run nginx --image=nginx --dry-run=client -o yaml</pre>
 
 - Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.
-    `kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml`
+    <pre>kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml</pre>
 
 ## ReplicaSets ( previously ReplicationController)
 
@@ -101,18 +103,20 @@ spec:
     
 ```
 
-`kubectl apply -f rcset-def.yml`
+<pre>kubectl apply -f rcset-def.yml </pre>
+
 
 - to update a replicaset
-
-`kubectl replace -f rcset-def.yml`
-`kubectl scale --replicas=6 -f rcset-def.yml`
-`kubectl scale --replicas=6 -f replicaset myapp-rcset`
+```
+kubectl replace -f rcset-def.yml
+kubectl scale --replicas=6 -f rcset-def.yml
+kubectl scale --replicas=6 -f replicaset myapp-rcset
 
 Save object config to file
-`kubectl get replicaset <repliaceset name> -o=yaml > updated-replicaset.yaml`
+kubectl get replicaset <repliaceset name> -o=yaml > updated-replicaset.yaml
 
-`kubectl replace replicaset <repliaceset name> -f updated-replicaset.yaml`
+kubectl replace replicaset <repliaceset name> -f updated-replicaset.yaml
+```
 
 
 ## Deployment
