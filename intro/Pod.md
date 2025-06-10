@@ -103,20 +103,23 @@ spec:
     
 ```
 
-<pre>kubectl apply -f rcset-def.yml </pre>
+- create replicaset
+    <pre>kubectl apply -f rcset-def.yml </pre>
 
 
 - to update a replicaset
-```
-kubectl replace -f rcset-def.yml
-kubectl scale --replicas=6 -f rcset-def.yml
-kubectl scale --replicas=6 -f replicaset myapp-rcset
+    ```
+    kubectl replace -f rcset-def.yml
+    kubectl scale --replicas=6 -f rcset-def.yml
+    kubectl scale --replicas=6 -f replicaset myapp-rcset
+    ```
 
-Save object config to file
-kubectl get replicaset <repliaceset name> -o=yaml > updated-replicaset.yaml
+- Save object config to file
+    ```
+    kubectl get replicaset <repliaceset name> -o=yaml > updated-replicaset.yaml
 
-kubectl replace replicaset <repliaceset name> -f updated-replicaset.yaml
-```
+    kubectl replace replicaset <repliaceset name> -f updated-replicaset.yaml
+    ```
 
 
 ## Deployment
