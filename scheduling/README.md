@@ -1,7 +1,9 @@
 # Scheduling
 
-## Manual scheduling
-- Scheduling the pods manually in definition file. Without a schedule we can schedule the pod in definition file.
+## 📅 Scheduling in Kubernetes
+- Manual scheduling allows you to explicitly specify the node on which a pod should run by setting the nodeName field in the pod definition file. This approach bypasses Kubernetes' default scheduler.
+
+📌 **Example:**
 
 ```yaml
 apiVersion: v1
@@ -17,10 +19,12 @@ spec:
     nodeName: node02
 ```
 
-## Automatic Scheduling
+## ⚙️ Automatic Scheduling
 
-### [Pod Placement and Node Selection in Kubernetes](PodPlacementandNodeSelection.md)
+### 📚Topics
 
-### [Resource Requirements and Limit](ResourceRequirementsandLimit)
+### [📄 Pod Placement and Node Selection in Kubernetes](PodPlacementandNodeSelection.md)
+
+### [📄 Resource Requirements and Limit](ResourceRequirementsandLimit)
 
 
