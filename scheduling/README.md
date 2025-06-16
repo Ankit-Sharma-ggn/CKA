@@ -19,8 +19,8 @@ spec:
 
 ## Automatic Scheduling
 
-## [Pod Placement and Node Selection in Kubernetes](PodPlacementandNodeSelection.md)
+### [Pod Placement and Node Selection in Kubernetes](PodPlacementandNodeSelection.md)
 
-## [Resource Requirements and Limit](ResourceRequirementsandLimit)
+### [Resource Requirements and Limit](ResourceRequirementsandLimit)
 
 
