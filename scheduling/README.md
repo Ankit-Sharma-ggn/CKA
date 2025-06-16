@@ -23,8 +23,8 @@ spec:
 
 ### 📚Topics
 
-### [📄 Pod Placement and Node Selection in Kubernetes](PodPlacementandNodeSelection.md)
+    ### [1. 📄 Pod Placement and Node Selection in Kubernetes](PodPlacementandNodeSelection.md)
 
-### [📄 Resource Requirements and Limit](ResourceRequirementsandLimit)
+    ### [2. 📄 Resource Requirements and Limit](ResourceRequirementsandLimit)
 
 
