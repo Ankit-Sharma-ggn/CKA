@@ -37,3 +37,25 @@ spec:
 ![behavior Memory](<Images/behavior memory.png>)
 
 
+## Limit Range
+
+- for every pod in cluster, we can set limit  of cpu and memory. It will applied to the new pods only.
+
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+    name: cpu-limit
+spec:
+    limits:
+    - default:
+        cpu: 500m   ### limit
+      defaultRequest:
+        cpu: 500m   ### Request
+      max:
+        cpu: "1"
+      min:
+        cpu: 100
+      type: Container
+```
+
