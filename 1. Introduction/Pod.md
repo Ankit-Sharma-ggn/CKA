@@ -40,6 +40,7 @@ spec:
   containers:
     - name: nginx-container
       image: nginx
+```
 
 ### 📌 Pod Operations & Commands
 
