@@ -25,8 +25,6 @@ Pods are **ephemeral**, lightweight wrappers around containers and are typically
 
 ### 📄 Pod Definition File
 
-**Filename:** `pod-def.yml`
-
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -43,13 +41,6 @@ spec:
 ```
 
 ### 📌 Pod Operations & Commands
-
-#### 📝 Create Pod Using YAML File
-
-```bash
-kubectl create -f pod-def.yml
-kubectl apply -f pod-def.yml
-```
 
 
 - create pod using yml file
@@ -74,6 +65,7 @@ kubectl apply -f pod-def.yml
 
 - Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.
     <pre>kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml</pre>
+---
 
 ## ReplicaSets ( previously ReplicationController)
 
@@ -154,8 +146,7 @@ spec:
 
     kubectl replace replicaset <repliaceset name> -f updated-replicaset.yaml
     ```
-
-
+---
 ## Deployment
 
 A Deployment in Kubernetes is a resource that allows users to manage and control the lifecycle of applications running in a Kubernetes cluster
@@ -195,7 +186,7 @@ spec:
 
 -  Get all components  
     <pre>kubectl get all</pre>
-
+---
 
 ## Namespace
 
@@ -234,7 +225,7 @@ spec:
 
     kubect get pods --all-namespaces         #getting all the pods in all the namespaces
 ```
-
+---
 ## Imperative vs Declarative
 
 - Imperative: set of multiple instructions to achieve desired goal. i.e like running multiple commands 
