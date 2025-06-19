@@ -58,6 +58,27 @@ spec:
 
     `kubetcl describe daemonsets <daemonset-name>`
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg"
+       alt="Kubernetes Logo" width="140">
+</p>
+
+<h1 align="center">Static Pods</h1>
+
+---
+
+### 📌 Key Points
+
+- **Definition** – Pods created directly by kubelets on worker nodes, without involving control‑plane components, are called **static pods**.  
+- **Use Case** – Commonly used to deploy control‑plane components themselves.  
+- **Automatic Creation** – Any pod configuration file placed in the kubelet’s `pod manifest path` is detected and the pod is created on that worker node.  
+- **Alternate Method** – Specify a kubelet **configuration file** via the `--config` flag and set `staticPodPath` inside that file.  
+- **Viewing Kubelet Config** – Inspect the active kubelet configuration with:  
+  ```bash
+  sudo systemctl cat kubelet
+  ```
+
+
 ## Static Pods
 - pods created by kubelets on worker nodes, without involving components from master nodes is called static pods.
 
@@ -125,3 +146,14 @@ preemptionPolicy: never
     c. PodTopologySpread: Prefers nodes that improve pod distribution.
 
 5. Pod Binding: The scheduler updates the pod's spec.nodeName field to bind it to the selected node.
+
+## Admission Controllers
+
+- Admission controllers are components in Kubernetes that intercept requests to the Kubernetes API server after authentication and authorization but before the object is persisted in etcd. They allow you to modify or validate requests before they are applied to the cluster.
+
+- Admission controllers are plugins that enforce policies on objects during their creation, update, or deletion. They can:
+
+    Mutate requests (e.g., add default values, inject sidecars).
+    Validate requests (e.g., enforce security policies, resource quotas).
+
+- The list of enabled admission controllers is configured in the Kubernetes API server. To check which admission controllers are enabled, follow these steps:
