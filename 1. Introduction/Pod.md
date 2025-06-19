@@ -44,10 +44,11 @@ spec:
 ### 📌 Pod Operations & Commands
 
 #### 📝 Create Pod Using YAML File
+
 ```bash
 kubectl create -f pod-def.yml
 kubectl apply -f pod-def.yml
-
+```
 
 
 - create pod using yml file
