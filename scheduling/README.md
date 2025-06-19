@@ -58,14 +58,7 @@ spec:
 
     `kubetcl describe daemonsets <daemonset-name>`
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg"
-       alt="Kubernetes Logo" width="140">
-</p>
 
-<h1 align="center">Static Pods</h1>
-
----
 
 ### 📌 Key Points
 
