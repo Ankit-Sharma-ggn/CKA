@@ -8,9 +8,11 @@
 ## Rolling updates and Rollbacks
 
 **Deployment Strategy**
-    1. `Recreate`: Deleting all older version pods together and then create them with new version. This kind of strategy involve application downtime.
+```
+    1. Recreate: Deleting all older version pods together and then create them with new version. This kind of strategy involve application downtime.
 
-    2. `Rolling Update`: Deletion older pods one by one and creating the newer version pods simultaneously. Default mode of upgrade.
+    2. RollingUpdate: Deletion older pods one by one and creating the newer version pods simultaneously. Default mode of upgrade.
+```
 
 **commands**
 
