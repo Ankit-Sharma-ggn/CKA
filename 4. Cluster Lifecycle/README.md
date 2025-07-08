@@ -5,13 +5,13 @@
 
 <h1 align="center">Cluster Lifecycle Management</h1>
 
-Node Eviction Timeout - time duration the cluster wait before restarting a pod on unreacahble node.
+**Node Eviction Timeout** - time duration the cluster wait before restarting a pod on unreacahble node.
 
 For upgrade and other maintenance activity, we need to mark a node unschedulable and move the workflow to another nodes.
 
-- commands
+
 ```
-kubectl drain node01    ## for updating node as unschedulable
+kubectl drain node01    ## for updating node as unschedulable and drain pods from the node
 
 kubectl uncordon node01 ## for updating node as schedulable
 
@@ -21,11 +21,11 @@ kubectl uncordon node01 ## for updating node as schedulable
 
 - version number contain Major, minor and patch version.
 
-` v1.0.alpha > v1.0.beta > v1.0.1 `
+    ` v1.0.alpha > v1.0.beta > v1.0.1 `
 
 ## Cluster upgrade
 
-- no component can be on higher version then kube-apiserver.
+- No component can be on higher version then kube-apiserver.
 
 - if kube-apiserver is at version v1.10, controller-manager and  kube-scheduler can be at x or x-1 version. Simillarly kubelet and kub-proxy can be at x, x-1 or x-2 version.
 
@@ -105,3 +105,23 @@ then you need to edit to be:
     ##NOTE: with etcdctl command we need to specify endpoint, cacert, cert and key
 ```
 
+
+Script "Disable IPv6 DNS Queries"{
+    GetScript = {
+        return @{Result="Disable ipv6 DNS queries"}
+	}
+    
+    setscript = {
+        Add-DnsServerQueryResolutionPolicy -action DENY -name "DisableIPv6Queries" -QType "EQ,AAAA"
+    }
+
+    Testscript = {
+        $policystate = Get-DnsServerQueryResolutionPolicy -name DisableIPv6Queries
+		if($policystate.IsEnabled ){ 
+            $true 
+        }
+		else{ 
+            $false 
+        } 
+    }
+}
