@@ -93,6 +93,8 @@ It ensures:
 
     `openssl req -new -key jane.key -subj "/CN=jane" -out jane.csr`
 
+    `cat jane.csr | base64`
+
 ```yaml
 apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
@@ -105,5 +107,53 @@ spec:
     - key encipherment
     - server auth
     request:
+        "## encoded certificate request data ##"
+```
+- admin can view the request and approve it
+
+```
+    kubectl get csr
+
+    kubectl certificate approve jane
+
+    kubectl get csr jane -o yaml   
+```
+
+## Kubeconfig
+
+- The kubeconfig file is a configuration file used by Kubernetes to manage access to clusters. It contains information about clusters, users, and contexts, enabling seamless interaction with Kubernetes clusters using the kubectl command-line tool.
+
+- default location of the file - $HOME/.kube/config
+
+```yaml
+apiVersion: v1
+kind: Config
+
+current-context: my-cluster-context
+
+clusters:
+- name: my-cluster
+  cluster:
+    server: https://<API_SERVER_ENDPOINT>
+    certificate-authority-data: ca.crt
+contexts:
+- name: my-cluster-context
+  context:
+    cluster: my-cluster
+    user: my-user
+    namespace: default
+current-context: my-cluster-context
+users:
+- name: my-user
+  user:
+    client-certificate: admin.crt
+    client-key: admin.key   
+```
+
+- kubectl commands to edit or view the kubeconfig
+```
+    kubectl config view
+
+    kubectl config use-context prod-user@prod
 
 ```
