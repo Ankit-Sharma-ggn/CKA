@@ -11,20 +11,21 @@
 
 - kube-apiserver authenticate the requests.
 
-- way to manager user access
-    1. **static password files**: csv file with password, user-name and userid's, and then update the kube-apiserver settings to add option `--basic-auth-file=user-details.csv`
+- way to manage user access
+
+1. **static password files**: csv file with password, user-name and userid's, and then update the kube-apiserver settings to add option `--basic-auth-file=user-details.csv`.
 
     `curl -v -k https://master-node-ip:6443/api/v1/pods -u "user1:password123"`
     
-    2. **Static Token file**: simillar to password file, we can have a static token file for authentication, `--token-auth-file=user-token-details.csv`
+2. **Static Token file**: simillar to password file, we can have a static token file for authentication , `--token-auth-file=user-token-details.csv`
 
     `curl -v -k https://master-node-ip:6443/api/v1/pods -header "Authorization: Bearer KpjsedsddsdfHwe@sexcfded"`
 
-    3. Certificates 
+3. Certificates 
 
-      [Certificates in Kubernetes in details](Certificate.md)
+[Certificates in Kubernetes in details](Certificate.md)
                             
-    4. Identity Services, i.e ldap
+4. Identity Services, i.e ldap
 
 
 ## Kubeconfig
