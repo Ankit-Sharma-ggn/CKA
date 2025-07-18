@@ -121,3 +121,4 @@ spec:
     kubectl get csr jane -o yaml   
 ```
 
+🛡️ [Back to Kubernetes Security Section](README.md)
