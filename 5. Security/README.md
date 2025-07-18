@@ -21,9 +21,9 @@
 
     `curl -v -k https://master-node-ip:6443/api/v1/pods -header "Authorization: Bearer KpjsedsddsdfHwe@sexcfded"`
 
-3. Certificates 
+3. **Certificates**
 
-[Certificates in Kubernetes in details](Certificate.md)
+	🔐 [Learn More About Certificates in Kubernetes](Certificate.md)
                             
 4. Identity Services, i.e ldap
 
