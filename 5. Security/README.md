@@ -3,7 +3,7 @@
        alt="Kubernetes Logo" width="140">
 </p>
 
-<h1 align="center">Security</h1>
+<h1 align="center">🛡️ Security</h1>
 
 ## Authentication
 
@@ -84,13 +84,13 @@ users:
 **Key Authorization Modes**
 Kubernetes supports several authorization modes, which can be enabled individually or in combination. Below are the primary modes:
 
-1. ⚙️ Node Authorization
+1. ⚙️ **Node Authorization**
 - Specifically used for **kubelets (nodes)** to interact with the Kubernetes API.
 - Ensures that nodes can only access resources they are responsible for (e.g., pods scheduled on them).
 
 ---
 
-2. 🔐 RBAC (Role-Based Access Control)
+2. 🔐 **RBAC (Role-Based Access Control)**
 - Most commonly used mode in Kubernetes.
 - Grants permissions to **users or service accounts** based on **roles and role bindings**.
 
@@ -100,7 +100,7 @@ Kubernetes supports several authorization modes, which can be enabled individual
 
 ---
 
-3. 🏷️ ABAC (Attribute-Based Access Control)
+3. 🏷️ **ABAC (Attribute-Based Access Control)**
 - Uses a **JSON or CSV policy file** to define access rules.
 - Each request is evaluated against the policy file to determine if it is allowed.
 
@@ -108,20 +108,20 @@ Kubernetes supports several authorization modes, which can be enabled individual
 
 ---
 
-4. 🌐 Webhook Authorization
+4. 🌐 **Webhook Authorization**
 - Delegates authorization to an **external service**.
 - Kubernetes sends the request to the webhook, which returns an **allow** or **deny** decision.
 - Useful for **custom logic** and **external policy engines**.
 
 ---
 
-5. ✅ AlwaysAllow
+5. ✅ **AlwaysAllow**
 - Allows **all requests** unconditionally.
 - Ideal for **testing** or **non-production** environments.
 
 ---
 
-6. ❌ AlwaysDeny
+6. ❌ **AlwaysDeny**
 - Denies **all requests** unconditionally.
 - Rarely used, but useful for **debugging** or **special lockdown scenarios**.
 ---
@@ -224,7 +224,7 @@ kubetcl describe serviceaccount dash-sa
 
 ```
 
-### Image Security
+## Image Security
 
 Image FQDN >> docker.io/library/nginx (Registry/UserorAccount/Image)
 
@@ -251,4 +251,57 @@ spec:
 
 
 ```
-``
+
+
+## Security in Docker
+
+- docker limit the root user in namespace by limiting the access to kernel and other namespace or host.
+
+- by default docker run the process using the root user, a user can sepcify the user in docker command.
+	`docker run --user=1001 ubuntu sleep 3600`
+
+- we can do the same at pod level as well
+
+```yaml
+## for pods
+spec:
+	securityContext:
+		runAsUser: 1000
+
+## for container inside a pod
+spec:
+	containers:
+		- name: ubuntu
+			image: ubuntu
+			command: ["sleep", "3600"]
+			securityContext:
+				runAsUser: 1000
+
+## container settings overrides the securuty context specified at pod level.
+```
+
+## Network Policy: 
+
+- for allowing only neccessary traffic between pods.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+	name: db-policy
+spec:
+	podSelector:
+		matchLabels:
+			role: db
+	policyTypes:
+		- Ingress
+	ingress:
+	- from:
+		- podSelector:
+			matchLabels:
+				name: api-pod
+		ports:
+		- protocol: TCP
+			port: 3306
+```
+
