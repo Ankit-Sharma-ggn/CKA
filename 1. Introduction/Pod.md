@@ -270,7 +270,6 @@ steps:
 
 - last applied config is only created when apply command is executed.
 
- 
-NEXT TOPIC
 
-## ➡️ **Next Topic:** ->[Basic Introduction to Services](Services.md)
+
+## ➡️ **Next Topic:** -> [Basic Introduction to Services](Services.md)

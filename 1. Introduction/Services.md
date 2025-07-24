@@ -91,4 +91,4 @@ kubectl create service loadbalancer mylbsvc --tcp=80:80
 ```
 
 
-## ➡️ **Next Topic:** -> [Scheduling in Kubernetes](../2. Scheduling/README.md)
+## ➡️ **Next Topic:** -> [Scheduling in Kubernetes]("../2. Scheduling/README.md")
