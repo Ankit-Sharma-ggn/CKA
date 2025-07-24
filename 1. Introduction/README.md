@@ -123,8 +123,9 @@ Worker nodes run the actual application workloads in containers. Each worker nod
 
 Kubernetes is the industry-standard solution for orchestrating containerized applications. It enables teams to build, deploy, and manage applications with high availability, scalability, and resilience across clusters of machines in both cloud and on-premise environments.
 
-## link -> ![Basic Introduction to Pods, replicaset and Deployement](Pod.md)
+NEXT TOPIC
 
-## link -> ![Basic Introduction to Services](Services.md)
+## link -> ![Introduction to Pods](Pod.md)
+
 
 

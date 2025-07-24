@@ -1,4 +1,11 @@
-# Service
+<p align="center">
+  <img src="https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg"
+       alt="Kubernetes Logo" width="140">
+</p>
+
+<h1 align="center">Kubernetes Services</h1>
+
+
 - Create a communication channel between pods, nodes and external world. 
 - Provide a consistent IP address and DNS name, ensuring reliable communication even when the underlying pods change.
 - Distribute traffic across multiple pods, ensuring high availability and scalability
@@ -82,3 +89,7 @@ kubectl create service nodeport mynodesvc --tcp=80:80
 kubectl create service loadbalancer mylbsvc --tcp=80:80
 
 ```
+
+NEXT TOPIC
+
+## link -> ![Scheduling in Kubernetes](2. Scheduling/README.md)
