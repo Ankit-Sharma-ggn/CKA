@@ -125,7 +125,7 @@ Kubernetes is the industry-standard solution for orchestrating containerized app
 
 NEXT TOPIC
 
-## link -> ![Introduction to Pods](Pod.md)
+## ➡️ **Next Topic:** ->[Introduction to Pods](Pod.md)
 
 
 
