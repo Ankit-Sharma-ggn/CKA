@@ -25,7 +25,7 @@ spec:
 
 ### [1. 📄 Pod Placement and Node Selection in Kubernetes](PodPlacementandNodeSelection.md)
 
-### [2. 📄 Resource Requirements and Limit](ResourceRequirementsandLimit)
+### [2. 📄 Resource Requirements and Limit](ResourceRequirementsandLimit.md)
 
 ## Daemon Sets
 
@@ -60,6 +60,11 @@ spec:
 
 
 
+
+
+
+## Static Pods
+
 ### 📌 Key Points
 
 - **Definition** – Pods created directly by kubelets on worker nodes, without involving control‑plane components, are called **static pods**.  
@@ -70,19 +75,6 @@ spec:
   ```bash
   sudo systemctl cat kubelet
   ```
-
-
-## Static Pods
-- pods created by kubelets on worker nodes, without involving components from master nodes is called static pods.
-
-- use for deploying control plane components.
-
-- any pod configuration file place at `pod manifest path` in configuration of kubelet service, are created by kubelet on worker nodes.
-
-- Second way, specify `config` in configuration of kubelet service, and define `staticPodPath` in the config file.
-
-- command to check kubelet service config - `sudo systemctl cat kubelet`
-
 
 ## Priority Class
 

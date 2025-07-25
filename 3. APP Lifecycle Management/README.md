@@ -11,8 +11,26 @@
 
 1. `Recreate`: Deleting all older version pods together and then create them with new version. This kind of strategy involve application downtime.
 
+```yaml
+## in deployment definition file
+
+spec:
+  strategy:
+    type: Recreate
+```
+
 2. `RollingUpdate`: Deletion older pods one by one and creating the newer version pods simultaneously. Default mode of upgrade.
 
+```yaml
+## in deployment definition file
+
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+```
 
 **commands**
 
