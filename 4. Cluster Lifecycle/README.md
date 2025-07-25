@@ -104,24 +104,3 @@ then you need to edit to be:
 
     ##NOTE: with etcdctl command we need to specify endpoint, cacert, cert and key
 ```
-
-
-Script "Disable IPv6 DNS Queries"{
-    GetScript = {
-        return @{Result="Disable ipv6 DNS queries"}
-	}
-    
-    setscript = {
-        Add-DnsServerQueryResolutionPolicy -action DENY -name "DisableIPv6Queries" -QType "EQ,AAAA"
-    }
-
-    Testscript = {
-        $policystate = Get-DnsServerQueryResolutionPolicy -name DisableIPv6Queries
-		if($policystate.IsEnabled ){ 
-            $true 
-        }
-		else{ 
-            $false 
-        } 
-    }
-}
