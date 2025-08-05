@@ -62,19 +62,26 @@ spec:
 ```
 
 ```yaml
-## using PVC in a pod def file
+## using PVC and hostpath in a pod def file
 spec:
   containers:
-    - name: myfrontend
+    - name: app-container
       image: nginx
       volumeMounts:
-      - mountPath: "/var/www/html"
-        name: mypd
+        - name: host-volume
+          mountPath: /mnt/hostdata       # Mounts host directory here
+        - name: pvc-volume
+          mountPath: /mnt/persistentdata # Mounts PVC here
   volumes:
-    - name: mypd
+    - name: host-volume
+      hostPath:
+        path: /data/host                # Path on the host machine
+        type: DirectoryOrCreate         # Create if doesn't exist
+    - name: pvc-volume
       persistentVolumeClaim:
-        claimName: myclaim
+        claimName: my-pvc               # Must exist already
 ```
+
 ## ⚙️ Dynamic Provisioning with StorageClass
 
 **Dynamic provisioning** allows storage to be created automatically using a StorageClass when a PVC is requested.
