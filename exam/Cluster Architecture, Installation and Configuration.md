@@ -59,16 +59,58 @@
 o	Ensure required ports are open (6443, 2379–2380, 10250–10259, 30000–32767, etc.).
 o	Set up network interface routing for pods/services.
 4.	Kubeadm prerequisites
-o	Install required packages: kubeadm, kubelet, kubectl.
-o	Verify versions align with the required Kubernetes version.
-o	Enable and start kubelet service.
+```
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+
+sudo systemctl enable --now kubelet
+
+kubelet --version
+
+```
 5.	Certificates & SSH
 o	Set up SSH access between nodes (sometimes for troubleshooting).
 o	Prepare certificate directories or approve CSRs if needed.
 6.	Cluster bootstrapping (related follow-up tasks)
-o	Run kubeadm init with required parameters (advertise address, pod CIDR, etc.).
-o	Set up kubeconfig (~/.kube/config).
-o	Apply a CNI plugin (Calico, Weave, etc.) after control-plane init.
+    -	Run kubeadm init with required parameters (advertise address, pod CIDR, etc.).
+    -	Set up kubeconfig (~/.kube/config).
+    -	Apply a CNI plugin (Calico, Weave, etc.) after control-plane init.
+
+```
+ip addr show eth0     ### to find the IP address of controlplane
+
+sudo kubeadm init \
+--apiserver-advertise-address=192.168.100.160 \
+--apiserver-cert-extra-sans=controlplane \
+--pod-network-cidr=172.17.0.0/16 \
+--service-cidr=172.20.0.0/16
+
+Your Kubernetes control-plane has initialized successfully!
+
+## To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+## Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+## hen you can join any number of worker nodes by running the following on each as root:
+kubeadm join 192.168.100.160:6443 --token hb4j2v.87qslsx1nwh19m5k \
+--discovery-token-ca-cert-hash sha256:72bb2ed9cc598bcdb2f65a747c06952043bf4fd23c9841d29ba601dd92792d41 
+
+```
+
+
 o	Join worker nodes with kubeadm join.
 
 
