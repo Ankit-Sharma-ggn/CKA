@@ -8,8 +8,6 @@
 
 ## Prepare underlying infrastructure for installing a Kubernetes cluster
 
-### Linux node setup
-
 - Configure hostname, static IP, and /etc/hosts entries across nodes.
 
     ```
@@ -41,7 +39,9 @@
     sudo sysctl --system
     ```
 
-2.	Container runtime installation
+## Installing Kubernetes and componennts using kubeadm 
+
+1.	Container runtime installation
 
     ```
     sudo dpkg -i containerd.io_1.7.22-1_amd64.deb
@@ -55,10 +55,12 @@
     systemctl status containerd
     ```
 
-3.	Networking prerequisites
-o	Ensure required ports are open (6443, 2379–2380, 10250–10259, 30000–32767, etc.).
-o	Set up network interface routing for pods/services.
-4.	Kubeadm prerequisites
+2.	Networking prerequisites
+    - Ensure required ports are open (6443, 2379–2380, 10250–10259, 30000–32767, etc.).
+    - Set up network interface routing for pods/services.
+
+3.	Kubeadm prerequisites
+
 ```
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
@@ -75,10 +77,8 @@ sudo systemctl enable --now kubelet
 kubelet --version
 
 ```
-5.	Certificates & SSH
-o	Set up SSH access between nodes (sometimes for troubleshooting).
-o	Prepare certificate directories or approve CSRs if needed.
-6.	Cluster bootstrapping (related follow-up tasks)
+
+4.	Cluster bootstrapping (related follow-up tasks)
     -	Run kubeadm init with required parameters (advertise address, pod CIDR, etc.).
     -	Set up kubeconfig (~/.kube/config).
     -	Apply a CNI plugin (Calico, Weave, etc.) after control-plane init.
@@ -111,17 +111,46 @@ kubeadm join 192.168.100.160:6443 --token hb4j2v.87qslsx1nwh19m5k \
 ```
 
 
-o	Join worker nodes with kubeadm join.
+5. Installing a CNI
 
 
+## Use Helm and Kustomize to install cluster components
 
-## Create and manage Kubernetes clusters using kubeadm
+### Helm
+
+```
+Commands
+
+helm search hub apache                                                  ### search charts from online hub
+helm search repo apache                                                 ### search charts from local repo
+
+helm repo add bitnami <url>                                             ### add local repo in helm
+
+helm install <release-name> <repo-name>/<chart-name>                    ### install a chart as revision
+helm install <release-name> <repo-name>/<chart-name> --version 7.0.1    ### install a chart as revision with specific version
+
+helm install --set image=nginx my-release bitnami/wordpress         ### install chart by overriding values
+helm install --values va.yaml image=nginx my-re bitnami/wordpress   ### install chart by overriding values using a yaml file
+
+### for editing values.yaml file
+helm pull --untar bitnami\wordpress                                 ### download the chart locally
+helm install my-release ./wordpress                                 ### install updated local chart 
+
+helm list                                                           ### list all the release 
+helm uninstall <release-name>                                       ### to uninstall a release
+helm upgrade <release-name>                                         ### upgrade a chart
+helm history <release-name>                                         ### show upgrade, install history of a release
+helm rollback <release-name> <revision-number>                      ### rollback to previous revision of a chart
+
+```
+
+## Manage Kubernetes clusters using kubeadm
 ## Manage the lifecycle of Kubernetes clusters
 ## 
 
 ## Manage role based access control (RBAC)
 ## Implement and configure a highly-available control plane
-## Use Helm and Kustomize to install cluster components
+
 ## Understand extension interfaces (CNI, CSI, CRI, etc.)
 ## Understand CRDs, install and configure operators
 
