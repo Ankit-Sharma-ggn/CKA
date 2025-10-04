@@ -144,6 +144,72 @@ helm rollback <release-name> <revision-number>                      ### rollback
 
 ```
 
+### kustomize
+
+Kustomization.yaml - The central file used by Kustomize to define resources, patches, and configurations.
+
+```yaml
+resources:
+  - deployment.yaml
+  - service.yaml
+
+commonLabels:
+  app: myapp
+```
+
+```
+kustomize version                                                       ### to fnd the version
+
+Kustomize build k8s/                                                    ### to output the combine manifest files
+
+Kustomize build k8s/ | kubectl apply -f -                               ### apply the manifest in cluster
+kubectl apply -k k8s/
+
+## delete resources
+Kustomize build k8s/ | kubectl delete -f -                              
+kubectl delete -k k8s/
+```
+
+#### Common Transformations
+
+1. commonLabel: 
+2. namePrefix\Suffix
+3. Namespace
+4. commonAnnotations
+
+#### Patches
+
+```yaml
+patches:
+    - target:
+        kind: deployment
+        name: api-deployment
+      patch: |-
+        - op: replace
+          path: /metadata/name
+          value: web-deployment
+
+```
+
+- patch to delete container from a pod
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - $patch: delete
+        name: memcached
+```
+
+- Overlays: 
+
+
+
 ## Manage Kubernetes clusters using kubeadm
 ## Manage the lifecycle of Kubernetes clusters
 ## 
